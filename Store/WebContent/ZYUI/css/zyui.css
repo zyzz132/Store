@@ -1,0 +1,4 @@
+.ui_select_f{cursor: pointer;line-height: 20px;padding: 10px;border: 1px solid #ddd;position: relative;width: 200px;display: inline-block;}
+.ui_select_option{position: absolute;background-color:white;border: 1px solid #ddd;display: none;width: 100%;left: 0px;top: 42px;}
+.ui_select_option>li{padding: 10px 10px;cursor: pointer;}
+.ui_select_option>li:hover{background-color: #007DDB;color: white;}
