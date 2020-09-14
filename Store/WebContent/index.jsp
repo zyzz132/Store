@@ -13,7 +13,7 @@
 	}
 	
 	try {
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/store?serverTimezone=UTC","zyzz","1234");//?serverTimezone=UTC
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/store?serverTimezone=UTC","root","1234");//?serverTimezone=UTC
 		out.println("连接成功");
 	}
 	catch (SQLException e){
