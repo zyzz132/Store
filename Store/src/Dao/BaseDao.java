@@ -5,7 +5,7 @@ import java.sql.*;
 public class BaseDao {
     private String driver = "com.mysql.cj.jdbc.Driver";
     private String url="jdbc:mysql://localhost:3306/store?serverTimezone=UTC";
-    private String user="zyzz";
+    private String user="root";
     private String password="1234";
     Connection conn=null;
 

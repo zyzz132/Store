@@ -10,14 +10,8 @@ public class mysqlConn {
     private String pwd="1234";
     BaseDao bd=new BaseDao();
     public user login(String username,String password){
-        Connection conn =null;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e1) {
-            e1.printStackTrace();
-        }
+        Connection conn =bd.getConnection();
         try{
-            conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/store?serverTimezone=UTC",user,pwd);
             String sql="SELECT * FROM users WHERE (Account_number=? OR phone=? OR Email=?  )AND  PASSWORD =?";
             //String sql2="UPDATE users SET newDateTime =NOW() WHERE (Account_number=? OR phone=? OR Email=?  )AND  PASSWORD =?";
             PreparedStatement pstam=conn.prepareStatement(sql);
