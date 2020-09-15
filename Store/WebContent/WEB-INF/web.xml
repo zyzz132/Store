@@ -3,6 +3,11 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+     <resource-ref>
+    	<res-ref-name>jdbc/store</res-ref-name>
+    	<res-type>java.sql.DataSource</res-type>
+    	<res-auth>Container</res-auth>
+    </resource-ref>
     <servlet>
         <servlet-name>topic</servlet-name>
         <servlet-class>org.servlet.TopicServlet</servlet-class>
@@ -19,4 +24,5 @@
         <servlet-name>File</servlet-name>
         <url-pattern>/File</url-pattern>
     </servlet-mapping>
+    
 </web-app>

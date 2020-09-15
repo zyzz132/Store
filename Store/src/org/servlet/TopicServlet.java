@@ -18,6 +18,7 @@ public class TopicServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.doPost(req,resp);
+        resp.setContentType("");
     }
 
     @Override
@@ -53,7 +54,6 @@ public class TopicServlet extends HttpServlet {
                 this.AddCommodity(request,response,out,userinfo);
                 break;
             case "AddBran":
-                System.out.println("添加品牌");
                 this.AddBrand(request,response,out,userinfo);
                 break;
                 default:

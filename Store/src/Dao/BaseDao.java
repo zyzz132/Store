@@ -2,23 +2,40 @@ package Dao;
 
 import java.sql.*;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+import javax.naming.Context;
+
+
 public class BaseDao {
     private String driver = "com.mysql.cj.jdbc.Driver";
     private String url="jdbc:mysql://localhost:3306/store?serverTimezone=UTC";
-    private String user="root";
+    private String user="store";
     private String password="1234";
     Connection conn=null;
 
+//    public Connection getConnection(){
+//        try{
+//            Class.forName(driver);
+//            conn= DriverManager.getConnection(url,user,password);
+//
+//        }catch (ClassNotFoundException e){
+//            e.printStackTrace();
+//        }catch (SQLException e){
+//            e.printStackTrace();
+//        }
+//        return conn;
+//    }
     public Connection getConnection(){
-        try{
-            Class.forName(driver);
-            conn= DriverManager.getConnection(url,user,password);
-
-        }catch (ClassNotFoundException e){
-            e.printStackTrace();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
+    	try {
+			Context ctx=new InitialContext();
+			DataSource dataSource = (DataSource)ctx.lookup("java:comp/env/jdbc/store");
+			conn=dataSource.getConnection();
+		} catch (NamingException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         return conn;
     }
     public int update(String sql,Object ...objects){
