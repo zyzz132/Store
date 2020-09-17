@@ -1,4 +1,4 @@
-package Coods;
+package entity;
 
 public class CommClass {
     private int CommClass_ID;

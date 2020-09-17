@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="sqlreq.*" %>
 <%@ page import="java.util.List" %>
-<%@ page import="Coods.Commodity" %>
+<%@ page import="entity.Commodity" %>
 <%
     user userinfo=(user)session.getAttribute("Userinfo");
     if(userinfo instanceof admin){

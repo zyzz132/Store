@@ -1,9 +1,10 @@
 package sqlreq;
 
-import Coods.CommClass;
-import Coods.Commodity;
-import Coods.CommodityTool;
 import Dao.BaseDao;
+import entity.CommClass;
+import entity.Commodity;
+import entity.CommodityTool;
+
 import org.brand.Brand;
 import org.brand.brandDao;
 

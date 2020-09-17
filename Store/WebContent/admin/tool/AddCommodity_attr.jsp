@@ -11,6 +11,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../../layui/css/layui.css">
+    <script src="../../js/jquery-1.12.2.js"></script>
 </head>
 <body style="padding: 20px">
 <div class="box_A addclassbox">
@@ -24,14 +25,18 @@
             <label class="layui-form-label">商品货号 :</label>
             <div class="layui-input-block">
                 <div class="addTypex">
-
-                    <p >规格名称:  <input type="text" name="" required lay-verify="required" placeholder="请输入规格名称" autocomplete="off" class="layui-input"></p>
-                    <p>价格:<input type="text" name="" lay-verify="title" autocomplete="off" placeholder="价格" class="layui-input"></p>
-                    <p>存库:<input type="text" name="" lay-verify="title" autocomplete="off"  class="layui-input"></p>
-                    <button type="button" class="layui-btn layui-btn-primary">添加</button>
+                    <p >规格名称:  <input type="text" name="CommType_Name" required lay-verify="required" placeholder="请输入规格名称" autocomplete="off" class="layui-input"></p>
+                    <p>价格:<input type="text" name="CommType_Price" lay-verify="title" autocomplete="off" placeholder="价格" class="layui-input"></p>
+                    <p>存库:<input type="text" name="CommType_Count" lay-verify="title" autocomplete="off"  class="layui-input"></p>
+                    <button type="button" class="layui-btn layui-btn-primary" id="addtype">添加</button>
                 </div>
-                <table>
-
+                <table id="talbe_a">
+                    <thead>
+                        <tr><th>编号</th><th>规格名称</th><th>规格价格</th></tr>
+                    </thead>
+                    <tbody>
+                    	
+                    </tbody>
                 </table>
             </div>
         </div>

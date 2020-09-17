@@ -9,9 +9,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import Coods.CommClass;
-import Coods.Commodity;
 import org.brand.Brand;
+
+import entity.CommClass;
+import entity.Commodity;
 import sqlreq.*;
 
 public class TopicServlet extends HttpServlet {
@@ -56,6 +57,9 @@ public class TopicServlet extends HttpServlet {
             case "AddBran":
                 this.AddBrand(request,response,out,userinfo);
                 break;
+            case "AddCommodiyType":
+            	
+            	break;
                 default:
                     out.println("url错误！");
         }
