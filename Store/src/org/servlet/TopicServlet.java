@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import org.brand.Brand;
-
+import entity.CommodityType;
 import entity.CommClass;
 import entity.Commodity;
 import sqlreq.*;
@@ -71,11 +71,10 @@ public class TopicServlet extends HttpServlet {
         user userInfo= comm.login(Uname,Pwd);
         if(userInfo!=null){
             session.setAttribute("Userinfo",userInfo);
-            System.out.println(">>>>>>>>>>登录成功");
             out.print(true);
         }else{
             out.print(false);
-            System.out.println(">>>>>>>>>>失败");
+            
         }
     }
     //退出登录
@@ -216,5 +215,18 @@ public class TopicServlet extends HttpServlet {
                 request.getParameter("sort")+","+
                 request.getParameter("isShow")+","+
                 request.getParameter("brand_manufacturer"));
+    }
+    //添加商品属性
+    public void AddCommodiyType(HttpServletRequest request ,HttpServletResponse response,PrintWriter out,user userinfo){
+    	CommodityType CommType=new CommodityType();
+    	String CommType_Name=request.getParameter("CommType_Name");
+    	String CommType_Price=request.getParameter("CommType_Price");
+    	if(CommType_Price!=null){
+    		
+    	}
+    	String CommType_CountS=request.getParameter("CommType_Count");
+    	if(CommType_CountS!=null){
+    		
+    	}
     }
 }
