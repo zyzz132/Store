@@ -1,4 +1,4 @@
-package Coods;
+package entity;
 
 public class Commodity {
     private int Commodity_Id;//商品ID

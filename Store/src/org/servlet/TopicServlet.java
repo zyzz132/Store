@@ -9,9 +9,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import Coods.CommClass;
-import Coods.Commodity;
 import org.brand.Brand;
+import entity.CommodityType;
+import entity.CommClass;
+import entity.Commodity;
 import sqlreq.*;
 
 public class TopicServlet extends HttpServlet {
@@ -56,6 +57,9 @@ public class TopicServlet extends HttpServlet {
             case "AddBran":
                 this.AddBrand(request,response,out,userinfo);
                 break;
+            case "AddCommodiyType":
+            	
+            	break;
                 default:
                     out.println("url错误！");
         }
@@ -67,11 +71,10 @@ public class TopicServlet extends HttpServlet {
         user userInfo= comm.login(Uname,Pwd);
         if(userInfo!=null){
             session.setAttribute("Userinfo",userInfo);
-            System.out.println(">>>>>>>>>>登录成功");
             out.print(true);
         }else{
             out.print(false);
-            System.out.println(">>>>>>>>>>失败");
+            
         }
     }
     //退出登录
@@ -212,5 +215,26 @@ public class TopicServlet extends HttpServlet {
                 request.getParameter("sort")+","+
                 request.getParameter("isShow")+","+
                 request.getParameter("brand_manufacturer"));
+    }
+    //添加商品属性
+    public void AddCommodiyType(HttpServletRequest request ,HttpServletResponse response,PrintWriter out,user userinfo){
+    	CommodityType CommType=new CommodityType();
+    	String CommType_Name=request.getParameter("CommType_Name");
+    	String CommType_PriceS=request.getParameter("CommType_Price");
+    	int Commodity_Id=Integer.parseInt(request.getParameter("Commodity_Id"));
+    	double CommType_Price=0;
+    	int CommType_Count=0;
+    	if(CommType_PriceS!=null){
+    		CommType_Price =Double.parseDouble(CommType_PriceS);
+    	}
+    	String CommType_CountS=request.getParameter("CommType_Count");
+    	if(CommType_CountS!=null){
+    		CommType_Count=Integer.parseInt(CommType_CountS);
+    	}
+    	CommType.setCommType_Name(CommType_Name);
+    	CommType.setCommType_Price(CommType_Price);
+    	CommType.setCommType_Name(CommType_Name);
+    	CommType.setCommodity_Id(Commodity_Id);
+    	
     }
 }
