@@ -220,13 +220,21 @@ public class TopicServlet extends HttpServlet {
     public void AddCommodiyType(HttpServletRequest request ,HttpServletResponse response,PrintWriter out,user userinfo){
     	CommodityType CommType=new CommodityType();
     	String CommType_Name=request.getParameter("CommType_Name");
-    	String CommType_Price=request.getParameter("CommType_Price");
-    	if(CommType_Price!=null){
-    		
+    	String CommType_PriceS=request.getParameter("CommType_Price");
+    	int Commodity_Id=Integer.parseInt(request.getParameter("Commodity_Id"));
+    	double CommType_Price=0;
+    	int CommType_Count=0;
+    	if(CommType_PriceS!=null){
+    		CommType_Price =Double.parseDouble(CommType_PriceS);
     	}
     	String CommType_CountS=request.getParameter("CommType_Count");
     	if(CommType_CountS!=null){
-    		
+    		CommType_Count=Integer.parseInt(CommType_CountS);
     	}
+    	CommType.setCommType_Name(CommType_Name);
+    	CommType.setCommType_Price(CommType_Price);
+    	CommType.setCommType_Name(CommType_Name);
+    	CommType.setCommodity_Id(Commodity_Id);
+    	
     }
 }
