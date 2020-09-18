@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>layout 后台大布局 - Layui</title>
+    <title>易购物</title>
     <link rel="stylesheet" href="../layui/css/layui.css">
     <script src="../js/jquery-1.12.2.js" type="text/javascript"></script>
     <script src="js/admin.js" type="text/javascript"></script>
@@ -21,7 +21,7 @@
         <div class="layui-logo">商品后台管理</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">控制台</a></li>
+            <!-- <li class="layui-nav-item"><a href="">控制台</a></li>
             <li class="layui-nav-item"><a href="">商品管理</a></li>
             <li class="layui-nav-item"><a href="">用户</a></li>
             <li class="layui-nav-item">
@@ -31,7 +31,7 @@
                     <dd><a href="">消息管理</a></dd>
                     <dd><a href="">授权管理</a></dd>
                 </dl>
-            </li>
+            </li> -->
         </ul>
         <% 	user userinfo=(user)session.getAttribute("Userinfo");
             if(userinfo!=null){
@@ -74,7 +74,6 @@
                         <dd><a href="commclass.jsp"  target="myiframe">商品分类</a></dd>
                         <dd><a href="GoodsList.jsp" target="myiframe">商品管理</a></dd>
                         <dd><a href="BrandList.jsp" target="myiframe">品牌管理</a></dd>
-                        <dd><a href="">超链接</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -101,11 +100,8 @@
                     <dl class="layui-nav-child">
                         <dd><a href="UserList.jsp" target="myiframe">用户信息</a></dd>
                         <dd><a href="javascript:;">用户订单</a></dd>
-                        <dd><a href="">超链接</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="">云市场</a></li>
-                <li class="layui-nav-item"><a href="">发布商品</a></li>
             </ul>
         </div>
     </div>

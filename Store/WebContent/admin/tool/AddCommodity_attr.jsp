@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../../layui/css/layui.css">
     <script src="../../js/jquery-1.12.2.js"></script>
+    <script src="../js/AddCommodiy_attr.js"></script>
 </head>
 <body style="padding: 20px">
 <div class="box_A addclassbox">
@@ -22,7 +23,7 @@
     </div>
     <div>
         <div class="layui-form-item">
-            <label class="layui-form-label">商品货号 :</label>
+            <label class="layui-form-label">商品规格 :</label>
             <div class="layui-input-block">
                 <div class="addTypex">
                     <p >规格名称:  <input type="text" name="CommType_Name" required lay-verify="required" placeholder="请输入规格名称" autocomplete="off" class="layui-input"></p>
@@ -32,10 +33,9 @@
                 </div>
                 <table id="talbe_a">
                     <thead>
-                        <tr><th>编号</th><th>规格名称</th><th>规格价格</th></tr>
+                        <tr><th>规格名称</th><th>规格价格</th><th>规格存库</th><th>操作删除</th></tr>
                     </thead>
-                    <tbody>
-                    	
+                    <tbody id="Commtype">
                     </tbody>
                 </table>
             </div>
@@ -48,5 +48,17 @@
     layui.use('form', function() {
         var form = layui.form;
     });
+    RefreshCommType();
+	function isdel(e){
+		layer.confirm('是否删除', {
+		  btn: ['是','否'] //按钮
+		}, function(){
+			delCommType(e);
+		  layer.msg('的确很重要', {icon: 1});
+		}, function(){
+		  
+		});
+	}
 </script>
+
 </html>

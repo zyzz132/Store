@@ -43,14 +43,17 @@ public class BaseDao {
         if(conn==null){
             conn=getConnection();
         }
+        PreparedStatement ps =null;
         try{
-            PreparedStatement ps=conn.prepareStatement(sql);
+            ps=conn.prepareStatement(sql);
             for (int i=0;i<objects.length;i++){
                 ps.setObject(i+1,objects[i]);
             }
             num=ps.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
+        }finally{
+        	closeALL(ps,conn);
         }
 
         return num;
