@@ -30,6 +30,11 @@
 <script src="../layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 
+<style>
+	.layui-table-cell{height: 100px;line-height: 50px;}
+	th>.layui-table-cell{height: 50px;}
+</style>
+
 <script>
     layui.use('table', function(){
         var table = layui.table;
@@ -38,17 +43,19 @@
             elem: '#demo'
             ,height: 312
             ,url:'../topic?prol=getCommoditysinfo'
-            ,page: true //开启分页
+            ,page: true ,//开启分页
+			height:1000
             ,cols: [[
                 {field:'Commodity_Id', width:80, title: 'ID', sort: true}
-                ,{field:'Commodity_Name', width:200, title: '商品名称'}
-                ,{field:'Commodity_No', width:120, title: '商品货号', sort: true}
-                ,{field:'subname', width:80, title: '城市'}
-                ,{field:'brand_id', title: '签名', minWidth: 150}
-                ,{field:'Commodity_introduce', width:80, title: '积分', sort: true}
-                ,{field:'Commodity_No', width:80, title: '评分', sort: true}
-                ,{field:'selling_price', width:80, title: '职业'}
-                ,{field:'market_price', width:135, title: '财富', sort: true}
+				,{field:'',width:200,title:'商品图片',height:100,style:"height:80px",templet:function(){return '<img src="../images/2.png" alt=""/>'}}
+                ,{field:'Commodity_Name', title: '商品名称'}
+                
+                ,{field:'subname', width:200, title: '副标题'}
+				,{field:'Commodity_No', width:120, title: '商品货号', sort: true}
+                ,{field:'brand_id', width:120,title: '品牌', minWidth: 150}
+                ,{field:'selling_price', width:80, title: '价格'}
+                ,{field:'market_price', width:135, title: '财富', sort: true},
+				,{field:'isShow', title:'是否显示', width:85, templet: '#switchTpl', unresize: false}
             ]]
 
         });

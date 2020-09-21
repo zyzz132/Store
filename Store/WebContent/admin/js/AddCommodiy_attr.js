@@ -6,7 +6,7 @@ $(function(){
 		var CommType_Price=$("input[name='CommType_Price']").val();
 		var CommType_Count=$("input[name='CommType_Count']").val();
 		$.ajax({
-			url:'../../topic',
+			url:'topic',
 			type:'post',
 			data:{prol:'AddCommodiyType',Commodity_Id:3,CommType_Name:CommType_Name,CommType_Price:CommType_Price,CommType_Count:CommType_Count},
 			dataType:'json',
@@ -23,7 +23,7 @@ $(function(){
 })
 function RefreshCommType(){
 	$.ajax({
-		url:'../../topic',
+		url:'topic',
 		type:'post',
 		data:{prol:'SelectCommType'},
 		dataType:'json',
@@ -50,7 +50,7 @@ function RefreshCommType(){
 function delCommType(e){
 	alert(e);
 	$.ajax({
-		url:'../../topic',
+		url:'topic',
 		type:'post',
 		data:{prol:'delCommodiyType',CommType_Id:e},
 		dataType:'json',

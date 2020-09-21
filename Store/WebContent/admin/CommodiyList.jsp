@@ -1,12 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Hasee
-  Date: 2020/8/22
-  Time: 17:38
-  To change this template use File | Settings | File Templates.
---%>
-<%@page import="Dao.CommClassDao"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" import="sqlreq.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <title>Title</title>
@@ -27,17 +21,17 @@
     <thead>
     <tr>
         <th width="60px">编号</th>
-        <th>分类名称</th>
-        <th>分类描述</th>
-        <th>商品数量</th>
-        <th width="70">导航显示</th>
-        <th width="70">是否显示</th>
+        <th>商品图片</th>
+        <th>商品名称</th>
+        <th>商品货号</th>
+        <th width="70">商品价格</th>
+        <th width="70">标签</th>
         <th>排序</th>
         <th width="100">操作</th>
     </tr>
     </thead>
     <tbody>
-        <%
+        <%--
         	CommClassDao ccd=new CommClassDao();
             String p=request.getParameter("page");
             String limi=request.getParameter("limit");
@@ -59,10 +53,10 @@
                 }
 
             }
-        %>
+        --%>
     </tbody>
     <script>
-    	var Count=<%=ccd.getcount()%>;
+
     </script>
 </table>
 
@@ -88,7 +82,7 @@
 		  laypage.render({
 		    elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
 		    ,count: Count //数据总数，从服务端得到
-		    ,curr:2
+		    ,curr: location.hash.replace('#!fenye=', '') //获取起始页
 			,hash: 'fenye' //自定义hash值
 				,jump: function(obj, first){
 			        

@@ -59,37 +59,43 @@ public class admin  extends user implements CommodityTool, brandDao {
 
 
     //获取分类列表
-    public String getCommClass(String Page){
-        int pages=Integer.parseInt(Page)-1;
-        if(Integer.parseInt(Page)>=2){
-            pages=(Integer.parseInt(Page)*10)-1;
-        }
+    public String getCommClass(int page,int limit){
+    	String sql="SELECT cl.CommClass_Id,cl.parentClass,cl.CommClass_Name,COUNT(cd.CommClass_Id) commodiyCount,cl.isShow,cl.isNavShow,cl.keyWord,cl.ClassDescribe,cl.sort FROM commclass cl LEFT  JOIN commodity cd ON cl.CommClass_Id=cd.CommClass_Id GROUP BY cl.CommClass_Id LIMIT ?,?";
         String str="";
         Connection conn=bd.getConnection();
-        Statement s=null;
-        ResultSet st=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
         try {
-            s=conn.createStatement();
-            st= s.executeQuery("SELECT * FROM commclass LIMIT "+pages+",10");
+            ps=conn.prepareStatement(sql);
+    		if(page==1){
+				ps.setInt(1, page-1);
+				System.out.println(page-1);
+			}else{
+				ps.setInt(1, (page-1)*limit);
+				System.out.println((page-1)*limit);
+			}
+			ps.setInt(2, limit);
+			rs=ps.executeQuery();
             StringBuffer sb=new StringBuffer();
-            while(st.next()){
+            while(rs.next()){
                 sb.append("<tr>");
-                sb.append("<td>"+st.getString("CommClass_Id")+"</td>");
-                sb.append("<td>"+st.getString("CommClass_Name")+"</td>");
+                sb.append("<td>"+rs.getString("CommClass_Id")+"</td>");
+                sb.append("<td>"+rs.getString("CommClass_Name")+"</td>");
 
-                sb.append("<td>"+st.getString("ClassDescribe")+"</td>");
-                sb.append("<td>"+st.getString("CommClass_Id")+"</td>");
-                if(st.getInt("isShow")==1){
+                sb.append("<td>"+rs.getString("ClassDescribe")+"</td>");
+                sb.append("<td>"+rs.getString("commodiyCount")+"</td>");
+                
+                if(rs.getInt("isShow")==1){
                     sb.append("<td class=\"layui-form\"><input type=\"checkbox\" name=\"isShow\" lay-skin=\"switch\" checked></td>");
                 }else{
                     sb.append("<td class=\"layui-form\"><input type=\"checkbox\" name=\"isShow\" lay-skin=\"switch\"></td>");
                 }
-                if(st.getInt("isNavShow")==1){
+                if(rs.getInt("isNavShow")==1){
                     sb.append("<td class=\"layui-form\"><input type=\"checkbox\" name=\"isShow\" lay-skin=\"switch\" checked></td>");
                 }else{
                     sb.append("<td class=\"layui-form\"><input type=\"checkbox\" name=\"isShow\" lay-skin=\"switch\"></td>");
                 }
-                sb.append("<td>"+st.getString("sort")+"</td>");
+                sb.append("<td>"+rs.getString("sort")+"</td>");
                 sb.append("<td><button type=\"button\" class=\"layui-btn layui-btn-primary layui-btn-xs upbtn\">编辑</button>" +
                         "<button type=\"button\" class=\"layui-btn layui-btn-primary layui-btn-xs delbtn\" >删除</button></td>");
                 sb.append("</tr>");
@@ -99,7 +105,7 @@ public class admin  extends user implements CommodityTool, brandDao {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }finally {
-            bd.closeALL(st,s,this.conn);
+            bd.closeALL(rs,ps,this.conn);
         }
         return str;
     }

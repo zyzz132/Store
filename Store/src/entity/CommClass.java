@@ -9,8 +9,31 @@ public class CommClass {
     private String keyWrod;
     private String ClassDescribe;
     private int sort;
+    private int CommodiyCount;
 
-    public int getCommClass_ID() {
+    public CommClass(int commClass_ID, int parentClass, String commClass_Name, int isShow, int isNavShow,
+			String keyWrod, String classDescribe, int sort, int commodiyCount) {
+		super();
+		CommClass_ID = commClass_ID;
+		this.parentClass = parentClass;
+		CommClass_Name = commClass_Name;
+		this.isShow = isShow;
+		this.isNavShow = isNavShow;
+		this.keyWrod = keyWrod;
+		ClassDescribe = classDescribe;
+		this.sort = sort;
+		CommodiyCount = commodiyCount;
+	}
+
+	public int getCommodiyCount() {
+		return CommodiyCount;
+	}
+
+	public void setCommodiyCount(int commodiyCount) {
+		CommodiyCount = commodiyCount;
+	}
+
+	public int getCommClass_ID() {
         return CommClass_ID;
     }
 

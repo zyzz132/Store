@@ -5,16 +5,24 @@
   Time: 23:10
   To change this template use File | Settings | File Templates.
 --%>
+<%@page import="entity.Commodity"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<% 
+	Commodity commd=(Commodity)request.getAttribute("comm");
+out.print(commd.getCommodity_Name());
+%>
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../../layui/css/layui.css">
-    <script src="../../js/jquery-1.12.2.js"></script>
-    <script src="../js/AddCommodiy_attr.js"></script>
+    <link rel="stylesheet" href="admin/css/style.css">
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="js/jquery-1.12.2.js"></script>
+    <script src="admin/js/AddCommodiy_attr.js"></script>
 </head>
 <body style="padding: 20px">
+<script>
+	var commodityID=<%=request.getParameter("commdID")%>;
+</script>
 <div class="box_A addclassbox">
     <div class="lc_c">
         <div class="lc_c_l lc_wc"><div class="bz_x"><div class="bz" >1</div><div class="bz_xian"></div></div><div class="bz_text" >填写商品信息</div></div>
@@ -43,7 +51,7 @@
     </div>
 </div>
 </body>
-<script src="../../layui/layui.js" charset="utf-8"></script>
+<script src="layui/layui.js" charset="utf-8"></script>
 <script>
     layui.use('form', function() {
         var form = layui.form;
@@ -54,7 +62,7 @@
 		  btn: ['是','否'] //按钮
 		}, function(){
 			delCommType(e);
-		  layer.msg('的确很重要', {icon: 1});
+		  layer.msg('已删除', {icon: 1});
 		}, function(){
 		  
 		});

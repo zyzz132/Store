@@ -55,13 +55,13 @@
         <div class="layui-form-item">
             <label class="layui-form-label">商品名称 :</label>
             <div class="layui-input-block">
-                <input type="text" name="Commodity_name" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                <input type="text" name="Commodity_name" lay-verify="required" autocomplete="off" placeholder="请输入商品名称" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">副标题 :</label>
             <div class="layui-input-block">
-                <input type="text" name="subname" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                <input type="text" name="subname" lay-verify="required" autocomplete="off" placeholder="请输入副标题" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -70,7 +70,6 @@
                 <select name="brand_id"  >
                     <option value="0">请选择</option>
                     <%
-
                         out.print(((admin) userinfo).getFirstClass(0));
                     %>
                 </select>
@@ -85,42 +84,42 @@
         <div class="layui-form-item">
             <label class="layui-form-label">商品货号 :</label>
             <div class="layui-input-block">
-                <input type="text" name="Commodity_No" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                <input type="text" name="Commodity_No" lay-verify="title" autocomplete="off" placeholder="请输入商品货号" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">商品售价 :</label>
             <div class="layui-input-block">
-                <input type="text" name="selling_price" lay-verify="title" autocomplete="off" placeholder="请输入标题" value="0" class="layui-input">
+                <input type="text" name="selling_price" lay-verify="title" autocomplete="off" placeholder="请输入商品售价" value="0.0" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">市场价 :</label>
             <div class="layui-input-block">
-                <input type="text" name="market_price" lay-verify="title" autocomplete="off" placeholder="请输入标题" value="0" class="layui-input">
+                <input type="text" name="market_price" lay-verify="title" autocomplete="off" placeholder="" value="0.0" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">存货 :</label>
             <div class="layui-input-block">
-                <input type="text" name="warehousing" lay-verify="title" autocomplete="off" placeholder="请输入标题" value="0" class="layui-input">
+                <input type="text" name="warehousing" lay-verify="number" autocomplete="off" placeholder="" value="0" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">计量单位 :</label>
             <div class="layui-input-block">
-                <input type="text" name="unit" lay-verify="title" autocomplete="off" placeholder="请输入标题" value="件" class="layui-input">
+                <input type="text" name="unit" lay-verify="title" autocomplete="off" placeholder="" value="件" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">排序 :</label>
             <div class="layui-input-block">
-                <input type="text" name="sort" lay-verify="title" autocomplete="off" placeholder="请输入标题" value="0" class="layui-input">
+                <input type="text" name="sort" lay-verify="number" autocomplete="off" placeholder="" value="0" class="layui-input">
             </div>
         </div>
         <div class="layui-input-block">
             <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">下一步</button>
-            <button type="button" class="layui-btn" id="submit_a">下一步2</button>
+            <!-- <button type="button" class="layui-btn" id="submit_a">下一步</button> -->
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </form>
@@ -181,7 +180,8 @@
                     console.log(res);
                     if(res.code==1){
                         layer.alert("添加成功");
-                        location.href="AddCommodity_attr.jsp";
+                        location.href="AddCommodity_attr.jsp?commdID="+res.Commodity_id;
+                        
                     }{
                         layer.alert("添加失败");
                     }

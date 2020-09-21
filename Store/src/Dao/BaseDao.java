@@ -9,24 +9,9 @@ import javax.naming.Context;
 
 
 public class BaseDao {
-    private String driver = "com.mysql.cj.jdbc.Driver";
-    private String url="jdbc:mysql://localhost:3306/store?serverTimezone=UTC";
-    private String user="store";
-    private String password="1234";
     Connection conn=null;
 
-//    public Connection getConnection(){
-//        try{
-//            Class.forName(driver);
-//            conn= DriverManager.getConnection(url,user,password);
-//
-//        }catch (ClassNotFoundException e){
-//            e.printStackTrace();
-//        }catch (SQLException e){
-//            e.printStackTrace();
-//        }
-//        return conn;
-//    }
+
     public Connection getConnection(){
     	try {
 			Context ctx=new InitialContext();
@@ -75,5 +60,22 @@ public class BaseDao {
         }catch (SQLException e){
             e.printStackTrace();
         }
+    }
+    protected ResultSet executeQuery(String sql, Object... params) {
+        conn = this.getConnection();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            for (int i = 0; i < params.length; i++) {
+                pstmt.setObject(i + 1, params[i]);
+            }
+            rs = pstmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+        	closeALL(pstmt,conn);
+        }
+        return rs;
     }
 }
