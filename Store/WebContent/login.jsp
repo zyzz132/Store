@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=utf-8"  %>
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/logandreg.css">
 <script src="js/jquery-1.12.2.js"></script>
     <script src="js/login.js"></script>
     <%@ include file="Header.jsp" %>
