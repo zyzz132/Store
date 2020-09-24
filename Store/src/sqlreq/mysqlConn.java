@@ -6,8 +6,7 @@ import java.sql.*;
 
 
 public class mysqlConn {
-    private String user="zyzz";
-    private String pwd="1234";
+
     BaseDao bd=new BaseDao();
     public user login(String username,String password){
         Connection conn =bd.getConnection();

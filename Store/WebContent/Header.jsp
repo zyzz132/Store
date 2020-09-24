@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="css/style.css">
 	<script src="js/jquery-1.12.2.js"></script>
 	<script src="js/head.js"></script>
+	<link rel="stylesheet" href="layui/css/layui.css">
+	<script src="layui/layui.js"></script>
 </head>
 <body>
 <div class="head">
@@ -31,7 +33,8 @@
 		</div>
 	</div>
 	<div class="top_2">
-		<div class="logo"></div>
+		<div class="logo"><img src="images/logo.png" width=100%></div>
+		
 		<%@ include file="tool/searc.jsp" %>
 		<%@ include file="tool/Shopping.jsp" %>
 	</div>

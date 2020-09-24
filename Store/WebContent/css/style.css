@@ -6,6 +6,8 @@ body{background-color: #f4f4f4;}
 .head>.top_1{width: 100%;background: #E3E4E5;height: 30px;margin: 0;}
 .head>.top_1>.nav_top>ul>li{display:inline-block;margin: 0 10px;font-size: 13px;}
 
+
+
 .nav_top{width: 1250px;margin: 0 auto;position: relative;}
 .nav_top>.loginInfo{position: absolute;right: 10px;top:0px;}
 .nav_top a{text-decoration: none;color: #666666;line-height: 30px;}
@@ -13,7 +15,7 @@ body{background-color: #f4f4f4;}
 
 .top_2{width: 1250px;margin: 0 auto;position: relative;}
 .top_2>div{display: inline-block;vertical-align: middle;}
-.top_2>.logo{width: 200px;height: 100px;background-color: #009900;}
+.top_2>.logo{width: 200px;height: 100px;}
 .top_2>.sousuo{position: absolute;top: 20px;right: 130px;}
 .top_2>.sousuo>.sousuo_bac{background-color: red;}
 .top_2>.sousuo>.sousuo_bac input:first-child{margin: 2px;border: 0px;outline: none;padding: 7px 3px;}
@@ -27,5 +29,8 @@ body{background-color: #f4f4f4;}
 .top_2>.Shopping_box>.Shopping_btn:hover{border-color: red;}
 .top_2>.Shopping_box>.Shopping_btn>p{position: absolute;top: 1px;right: 10px;background-color: red;border-radius: 5px;color: white;line-height: 15px;padding: 3px;font-size: 11px;}
 
+/*轮播*/
+.lb{padding:5px; margin:0px auto; width:1300px;padding-top:0px;}
+.lb #test10{width:1500px;}
 
 
