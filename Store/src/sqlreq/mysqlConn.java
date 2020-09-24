@@ -95,7 +95,7 @@ public class mysqlConn {
             e1.printStackTrace();
         }
         try{
-            conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/store?serverTimezone=UTC",user,pwd);
+            conn= bd.getConnection();
             Statement stam=conn.createStatement();
             //mysqlConn comm=new mysqlConn();
             String sql="SELECT User_Id,User_Name,phone,Email,typeName,DATETIME,newDateTime  FROM users u INNER JOIN user_type t ON u.User_typeID=t.User_typeID";
@@ -127,7 +127,7 @@ public class mysqlConn {
             e.printStackTrace();
         }
         try{
-            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/store",user,pwd);
+            conn=bd.getConnection();
             Statement state =conn.createStatement();
             String sql="SELECT * FROM commodity";
             ResultSet rs=state.executeQuery(sql);
