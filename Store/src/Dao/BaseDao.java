@@ -9,10 +9,11 @@ import javax.naming.Context;
 
 
 public class BaseDao {
-    Connection conn=null;
+    
 
 
     public Connection getConnection(){
+    	Connection conn=null;
     	try {
 			Context ctx=new InitialContext();
 			DataSource dataSource = (DataSource)ctx.lookup("java:comp/env/jdbc/store");
@@ -24,6 +25,7 @@ public class BaseDao {
         return conn;
     }
     public int update(String sql,Object ...objects){
+    	Connection conn=null;
         int num=0;
         if(conn==null){
             conn=getConnection();
@@ -62,6 +64,7 @@ public class BaseDao {
         }
     }
     protected ResultSet executeQuery(String sql, Object... params) {
+    	Connection conn=null;
         conn = this.getConnection();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -73,8 +76,6 @@ public class BaseDao {
             rs = pstmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally{
-        	closeALL(pstmt,conn);
         }
         return rs;
     }

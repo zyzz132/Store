@@ -20,6 +20,8 @@
 <script>location.href="../login.sjp"</script>
     <%
     }
+    String type=request.getParameter("prol");
+    
 %>
 <html>
 <head>
@@ -27,6 +29,9 @@
     <link rel="stylesheet" href="../../layui/css/layui.css"  media="all">
     <link rel="stylesheet" href="../css/style.css">
     <script src="../../js/jquery-1.12.2.js"></script>
+    <script>
+	var types='<%=type%>';
+	</script>
 </head>
 <body style="padding: 20px">
 <div class="box_A addclassbox">
@@ -36,6 +41,7 @@
         <div class="lc_c_l"><div class="bz_x"><div class="bz">3</div></div><div class="bz_text">完成添加</div></div>
     </div>
     <form action="../../topic?prol=AddCommodity" method="post" class="layui-form formPadden">
+    	<input type="hidden" name="types" value="<%=type %>">
         <div class="layui-form-item">
         <label class="layui-form-label">商品分类 :</label>
         <div class="layui-input-inline">
@@ -149,49 +155,7 @@
             }
         });
     });
-    $(function () {
-        $("#submit_a").click(function () {
-            submit_a();
-        });
-    });
-    function submit_a() {
-        var Commodity_name=$("input[name='Commodity_name']").val();
-        var CommClass_id_1=$("select[name='CommClass_id_1']").val();
-        var CommClass_id_2=$("select[name='CommClass_id_2']").val();
-        var subname=$("input[name='subname']").val();
-        var brand_id=$("select[name='brand_id']").val();
-        var Commodity_introduce=$("textarea[name='Commodity_introduce']").val();
-        var Commodity_No=$("input[name='Commodity_No']").val();
-        var selling_price=$("input[name='selling_price']").val();
-        var market_price=$("input[name='market_price']").val();
-        var warehousing=$("input[name='warehousing']").val();
-        var unit=$("input[name='unit']").val();
-        var sort=$("input[name='sort']").val();
 
-        $.ajax(
-            {
-                url:'../../topic',
-                type:'post',
-                data:{Commodity_name:Commodity_name,CommClass_id_1:CommClass_id_1,CommClass_id_2:CommClass_id_2,
-                    subname:subname,brand_id:brand_id,Commodity_introduce:Commodity_introduce,Commodity_No:Commodity_No,selling_price:selling_price,
-                    market_price:market_price,warehousing:warehousing,unit:unit,sort:sort,prol:"AddCommodity"},
-                dataType:'JSON',
-                success:function (res) {
-                    console.log(res);
-                    if(res.code==1){
-                        layer.alert("添加成功");
-                        location.href="AddCommodity_attr.jsp?commdID="+res.Commodity_id;
-                        
-                    }{
-                        layer.alert("添加失败");
-                    }
-
-                },
-                error:function(xhr){alert('php页面有错误！'+xhr.responseText);}
-
-            }
-        )
-    }
 </script>
 <script src="../js/Good.js"></script>
 </html>

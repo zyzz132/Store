@@ -12,7 +12,14 @@ import entity.CommodityType;
 
 public class CommoidyTypeDao extends BaseDao{
 	public int AddCommType(CommodityType commType){
+		//StringBuffer sb=new StringBuffer("INSERT INTO commodity_type VALUES");
 		String sql="INSERT INTO commodity_type VALUES(NULL,?,?,?,?)";
+//		for(int i=0;i<commTypeList.size();i++){
+//			sb.append("(NULL,?,?,?,?)");
+//			if(i!=commTypeList.size()-1){
+//				sb.append(",");
+//			}
+//		}
 		int num=update(sql, 
 				commType.getCommodity_Id(),
 				commType.getCommType_Name(),

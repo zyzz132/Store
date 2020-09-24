@@ -7,11 +7,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.brand.Brand;
 
 import Dao.CommClassDao;
+import Dao.CommodityImageDao;
 import Dao.CommodiyDao;
 import Dao.CommoidyTypeDao;
 import entity.CommodityType;
@@ -72,6 +74,9 @@ public class TopicServlet extends HttpServlet {
             	break;
             case "getCommClass":
             	this.getCommClass(request,out,userinfo);
+            	break;
+            case "submitCommd":
+            	this.submitCommd(request,out);
             	break;
                 default:
                     out.println("url错误！");
@@ -187,24 +192,15 @@ public class TopicServlet extends HttpServlet {
         commd.setSort(Integer.parseInt(request.getParameter("sort")));
         commd.setCommodity_introduce(request.getParameter("Commodity_introduce"));
         commd.setWarehousing(Integer.parseInt(request.getParameter("warehousing")));
-        request.setAttribute("comm",commd);
+//        request.setAttribute("comm",commd);
+        request.getSession().setAttribute("comm", commd);
+        String type=request.getParameter("types");
         try {
-			request.getRequestDispatcher("admin/tool/AddCommodity_attr.jsp").forward(request, response);
-		} catch (ServletException e) {
+			response.sendRedirect("admin/tool/AddCommodity_attr.jsp?types="+type);
+		} catch (IOException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
 		}
-//        int num=((admin)userinfo).AddCommodity(commd);
-//        if(num>=1){
-//        	CommodiyDao cdao=new CommodiyDao();
-//        	commd.setCommodity_Id(cdao.getCommodiyID(commd.getCommodity_Name()).getCommodity_Id());
-//            out.println("{\"code\":1,\"Commodity_id\":"+commd.getCommodity_Id()+"}");
-//        }else{
-//            out.println("{\"code\":0}");
-//        }
 
     }
     //添加品牌
@@ -250,16 +246,17 @@ public class TopicServlet extends HttpServlet {
         	}
         	CommType.setCommType_Name(CommType_Name);
         	CommType.setCommType_Price(CommType_Price);
-        	CommType.setCommType_Name(CommType_Name);
-        	CommType.setCommodity_Id(Commodity_Id);
+        	CommType.setCommType_Count(CommType_Count);
+//        	CommType.setCommodity_Id(Commodity_Id);
         	CommoidyTypeDao ctd=new CommoidyTypeDao();
+        	Commodity comm=(Commodity)request.getSession().getAttribute("comm");
+        	List<CommodityType> commTypeList=comm.getCommTypeList();
+        	commTypeList.add(CommType);
+        	comm.setCommTypeList(commTypeList);
+        	request.getSession().setAttribute("comm", comm);
 
-        	int num=ctd.AddCommType(CommType);
-        	if(num>=1){
-        		out.print("{\"code\":1}");
-        	}else{
-        		out.print("{\"code\":0}");
-        	}
+        	out.print("{\"code\":1}");
+
     	}else{
     		out.print("{\"code\":-1}");
     	}
@@ -268,17 +265,22 @@ public class TopicServlet extends HttpServlet {
     }
     //查询商品规格
     public void SelectCommType(HttpServletRequest request ,HttpServletResponse response,PrintWriter out,user userinfo){
-    	CommoidyTypeDao ctd=new CommoidyTypeDao();
-    	List<CommodityType> list=ctd.getCommTypes();
+    	String loadtypeT=request.getParameter("loadtypeT");
+    	List<CommodityType> list=null;
+    	if(loadtypeT.equals("add")){
+    		Commodity comm=(Commodity)request.getSession().getAttribute("comm");
+    		list=comm.getCommTypeList();
+    	}else{
+    		CommoidyTypeDao ctd=new CommoidyTypeDao();
+        	list=ctd.getCommTypes();
+    	}
     	StringBuffer sb=new StringBuffer();
     	if(list !=null){
     		sb.append("{\"code\":1,\"page\":1,\"data\":[");
-    		for (CommodityType commodityType : list) {
-    			
-    		}
     		for(int i=0;i<list.size();i++){
     			CommodityType commodityType=list.get(i);
-    			sb.append("{\"CommType_Id\":"+commodityType.getCommType_Id()+",");
+    			sb.append("{\"no\":"+i+",");
+    			sb.append("\"CommType_Id\":"+commodityType.getCommType_Id()+",");
     			sb.append("\"Commodity_Id\":"+commodityType.getCommodity_Id()+",");
     			sb.append("\"CommType_Name\":\""+commodityType.getCommType_Name()+"\",");
     			sb.append("\"CommType_Price\":"+commodityType.getCommType_Price()+",");
@@ -294,22 +296,21 @@ public class TopicServlet extends HttpServlet {
     		sb.append("{\"code\":0}");
     	}
     	out.print(sb.toString());
+    	
     }
     //删除商品规格
     public void delCommodiyType(HttpServletRequest request ,HttpServletResponse response,PrintWriter out,user userinfo){
-    	CommoidyTypeDao ctd=new CommoidyTypeDao();
+    	//CommoidyTypeDao ctd=new CommoidyTypeDao();
     	if(userinfo instanceof admin){
     		CommodityType commType=null;
-    		String CommType_Id=request.getParameter("CommType_Id");
-    		if(CommType_Id!=null){
-    			commType=ctd.getCommTypesID(Integer.parseInt(CommType_Id));
+    		String no=request.getParameter("no");
+    		if(no!=null){
+    			Commodity comm=(Commodity)request.getSession().getAttribute("comm");
+        		comm.getCommTypeList().remove(Integer.parseInt(no));
+        		out.print("{\"code\":1}");
+    		}else{
+    			out.print("{\"code\":0}");
     		}
-    		if(commType!=null){
-    			int num=ctd.DelCommType(commType.getCommType_Id());
-    			
-    			out.print("{\"code\":"+num+"}");
-    		}
-    		
     	}
     }
     //获取商品分类
@@ -345,5 +346,53 @@ public class TopicServlet extends HttpServlet {
         }
         sb.append("]}");
         out.print(sb.toString());
+    }
+    //
+    public void submitCommd(HttpServletRequest request ,PrintWriter out){
+    	CommodiyDao commDao=new CommodiyDao();
+    	Commodity commd=(Commodity)request.getSession().getAttribute("comm");
+    	if(commd!=null){
+    		
+    	}
+    	int putaway=0;
+    	int new_recommend=0;
+    	int recommend=0;
+    	int guarantee1=0;
+    	int guarantee2=0;
+    	int guarantee3=0;
+    	if(request.getParameter("putaway")!=null){
+    		putaway=1;
+    		
+    	}
+    	if(request.getParameter("new_recommend")!=null){
+    		new_recommend=1;
+    	}
+    	if(request.getParameter("recommend")!=null){
+    		recommend=1;
+    	}
+    	String [] guarantees=request.getParameterValues("guarantee");
+    	for(int i=0;i<guarantees.length;i++){
+    		if(guarantees[i].equals("无忧退货")){
+    			guarantee1=1;
+    		}else if(guarantees[i].equals("快速退款")){
+    			guarantee2=1;
+    		}else if(guarantees[i].equals("免费包邮")){
+    			guarantee3=1;
+    		}
+    	}
+    		
+		commd.setPutaway(putaway);
+		commd.setNew_recommend(new_recommend);
+		commd.setRecommend(recommend);
+		commd.setGuarantee1(guarantee1);
+		commd.setGuarantee2(guarantee2);
+		commd.setGuarantee3(guarantee3);
+		int num=commDao.AddCommodity(commd);
+		if(num>=1){
+			out.print("添加成功");
+		}else{
+			out.print("失败");
+		}
+		
     }
 }

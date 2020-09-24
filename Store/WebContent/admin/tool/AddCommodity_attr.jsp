@@ -8,20 +8,27 @@
 <%@page import="entity.Commodity"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% 
-	Commodity commd=(Commodity)request.getAttribute("comm");
-out.print(commd.getCommodity_Name());
+	String type=request.getParameter("types");
+%>
+<% String path=request.getScheme() + "://"+request.getServerName()+":"+request.getServerPort()+ request.getContextPath()+"/";
+    pageContext.setAttribute("path",path);
 %>
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="admin/css/style.css">
-    <link rel="stylesheet" href="layui/css/layui.css">
-    <script src="js/jquery-1.12.2.js"></script>
-    <script src="admin/js/AddCommodiy_attr.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <script src="../../js/jquery-1.12.2.js"></script>
+    <script src="../js/AddCommodiy_attr.js"></script>
+    <style>
+    	.layui-upload-img{
+    	width: 120;
+    	height: 120;}
+    </style>
 </head>
 <body style="padding: 20px">
 <script>
-	var commodityID=<%=request.getParameter("commdID")%>;
+	var types='<%=type%>';
 </script>
 <div class="box_A addclassbox">
     <div class="lc_c">
@@ -48,11 +55,51 @@ out.print(commd.getCommodity_Name());
                 </table>
             </div>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">商品相册 :</label>
+            <div class="layui-input-block">
+                <div class="layui-upload">
+				  <button type="button" class="layui-btn" id="test2">多图片上传</button> 
+				  <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+				    预览图：
+				    <div class="layui-upload-list" id="demo2"></div>
+				 </blockquote>
+				</div>
+            </div>
+        </div>
+        <form action="${path}topic?prol=submitCommd" method="post" class="layui-form">
+        	<div class="layui-form-item">
+        		<label class="layui-form-label">商品上架 :</label>
+        		<div class="layui-input-block">
+                	<input type="checkbox" checked="" name="putaway" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
+           	 	</div>
+        	</div>
+        	<div class="layui-form-item">
+        		<label class="layui-form-label">商品推荐 :</label>
+        		<div class="layui-input-block">
+        			<input type="checkbox" checked="" name="new_recommend" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
+                	<input type="checkbox" checked="" name="recommend" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
+           	 	</div>
+        	</div>
+			<div class="layui-form-item">
+        		<label class="layui-form-label">服务保证 :</label>
+        		<div class="layui-input-block">
+                	<input type="checkbox" name="guarantee" title="无忧退货" checked="">
+      				<input type="checkbox" name="guarantee" title="快速退货" checked="">
+      				<input type="checkbox" name="guarantee" title="免费包邮" checked="">
+           	 	</div>
+        	</div>
+	        <div class="layui-input-block">
+	        	<button type="submit" class="layui-btn" id="submit_a">提交</button>
+	        </div>
+        </form>
+        
     </div>
 </div>
 </body>
-<script src="layui/layui.js" charset="utf-8"></script>
+<script src="../../layui/layui.js" charset="utf-8"></script>
 <script>
+	
     layui.use('form', function() {
         var form = layui.form;
     });
@@ -67,6 +114,28 @@ out.print(commd.getCommodity_Name());
 		  
 		});
 	}
+	
+  layui.use('upload', function(){
+	  var upload = layui.upload;
+	   
+	//多图片上传
+	  upload.render({
+	    elem: '#test2'
+	    ,url: '../../File?filetype=commodit' //改成您自己的上传接口
+	    ,multiple: true
+	    ,before: function(obj){
+	      //预读本地文件示例，不支持ie8
+	      obj.preview(function(index, file, result){
+	        $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
+	      });
+	    }
+	    ,done: function(res){
+	      //上传完毕
+	      console.log(res);
+	    }
+	  });
+	});
+  
 </script>
 
 </html>

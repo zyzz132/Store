@@ -1,5 +1,8 @@
 package entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Commodity {
     private int Commodity_Id;//商品ID
     private String Commodity_Name;//商品名称
@@ -15,8 +18,80 @@ public class Commodity {
     private String weight;//重量;
     private int sort;//排序
     private String Time;//商品日期
+    private List<CommodityType> commTypeList=new ArrayList<CommodityType>();//商品规格
+    private List<CommodityImage> imageList=new ArrayList<CommodityImage>();//商品相册
+    private int putaway;//商品上架
+    private int new_recommend;//新品推荐
+    private int recommend;//推荐
+    private int guarantee1;//无忧退货
+    private int guarantee2;//快速退款
+    private int guarantee3;//免费包邮
 
-    public Commodity() {
+    public int getPutaway() {
+		return putaway;
+	}
+
+	public void setPutaway(int putaway) {
+		this.putaway = putaway;
+	}
+
+	public int getNew_recommend() {
+		return new_recommend;
+	}
+
+	public void setNew_recommend(int new_recommend) {
+		this.new_recommend = new_recommend;
+	}
+
+	public int getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(int recommend) {
+		this.recommend = recommend;
+	}
+
+	public int getGuarantee1() {
+		return guarantee1;
+	}
+
+	public void setGuarantee1(int guarantee1) {
+		this.guarantee1 = guarantee1;
+	}
+
+	public int getGuarantee2() {
+		return guarantee2;
+	}
+
+	public void setGuarantee2(int guarantee2) {
+		this.guarantee2 = guarantee2;
+	}
+
+	public int getGuarantee3() {
+		return guarantee3;
+	}
+
+	public void setGuarantee3(int guarantee3) {
+		this.guarantee3 = guarantee3;
+	}
+
+	public List<CommodityImage> getImageList() {
+		return imageList;
+	}
+
+	public void setImageList(List<CommodityImage> imageList) {
+		this.imageList = imageList;
+	}
+
+	public List<CommodityType> getCommTypeList() {
+		return commTypeList;
+	}
+
+	public void setCommTypeList(List<CommodityType> commTypeList) {
+		this.commTypeList = commTypeList;
+	}
+
+	public Commodity() {
     }
 
     public int getBrand_id() {

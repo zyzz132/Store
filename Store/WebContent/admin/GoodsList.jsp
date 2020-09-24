@@ -21,7 +21,7 @@
 <body style="padding: 20px">
 <div class="box_B">
     <span>数据列表</span>
-    <a href="tool/AddGood.jsp" class="btn_B">添加</a>
+    <a href="tool/AddGood.jsp?prol=add" class="btn_B">添加</a>
 </div>
 
 <table id="demo" lay-filter="test"></table>
@@ -59,6 +59,14 @@
             ]]
 
         });
+    });
+  //页面层
+
+    layer.open({
+      type: 1,
+      skin: 'layui-layer-rim', //加上边框
+      area: ['420px', '240px'], //宽高
+      content: 'html内容'
     });
 </script>
 

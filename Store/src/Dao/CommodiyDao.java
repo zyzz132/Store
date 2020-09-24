@@ -11,6 +11,70 @@ import entity.CommClass;
 import entity.Commodity;
 
 public class CommodiyDao extends BaseDao{
+	//添加商品信息
+	public int AddCommodity(Commodity commd){
+		String addCommoditySql="INSERT INTO commodity VALUES(NULL,?,?,NOW(),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		
+		int num=update(addCommoditySql, commd.getCommodity_Name(),
+				commd.getCommClass_Id(),
+				commd.getSubname(),
+				commd.getUnit(),
+				commd.getBrand_id(),
+				commd.getCommodity_No(),
+				commd.getWarehousing(),
+				commd.getSort(),
+				commd.getSelling_price(),
+				commd.getMarket_price(),
+				commd.getWeight(),
+				commd.getCommodity_introduce(),
+				commd.getPutaway(),
+				commd.getNew_recommend(),
+				commd.getRecommend(),
+				commd.getGuarantee1(),
+				commd.getGuarantee2(),
+				commd.getGuarantee3());
+		if(num>=1){
+			String selectIDsql="SELECT Commodity_Id FROM commodity WHERE Commodity_name=? AND subname=? AND market_price=? AND unit=?";
+			ResultSet rs=executeQuery(selectIDsql, commd.getCommodity_Name(),
+					commd.getSubname(),
+					commd.getMarket_price(),
+					commd.getUnit());
+			
+			try {
+				if(rs.next()){
+					commd.setCommodity_Id(rs.getInt("Commodity_Id"));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(commd.getCommodity_Id()>0){//判断商品是否添加成功
+				//添加商品规格
+				CommoidyTypeDao ctdao=new CommoidyTypeDao();
+				for(int i=0;i<commd.getCommTypeList().size();i++){
+					commd.getCommTypeList().get(i).setCommodity_Id(commd.getCommodity_Id());
+					System.out.println("开始添加"+i);
+					num=ctdao.AddCommType(commd.getCommTypeList().get(i));
+					System.out.println("关闭添加"+i);
+					if(num==0){
+						return num;
+					}
+				}
+				//添加商品相册
+				CommodityImageDao commimageDao=new CommodityImageDao();
+				for(int i=0;i<commd.getImageList().size();i++){
+					commd.getImageList().get(i).setCommodity_id(commd.getCommodity_Id());
+					num=commimageDao.AddCommdoityImage(commd.getImageList().get(i));
+					if(num==0){
+						return num;
+					}
+				}
+				
+			}
+			
+		}
+		return 1;
+	}
 	public List<CommClass> getCommClass(int page, int limit){
     	String sql="SELECT cl.CommClass_Id,cl.parentClass,cl.CommClass_Name,COUNT(cd.CommClass_Id) commodiyCount,cl.isShow,cl.isNavShow,cl.keyWord,cl.ClassDescribe,cl.sort FROM commclass cl LEFT  JOIN commodity cd ON cl.CommClass_Id=cd.CommClass_Id GROUP BY cl.CommClass_Id LIMIT ?,?";
         List<CommClass> list=new ArrayList<CommClass>();
