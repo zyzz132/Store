@@ -2,6 +2,6 @@
 
 	<%@ include file="Header.jsp" %>
 	
-	<div class="lb"><%@ include file="slideshow.jsp" %></div>
+	<div class="lb"><%@ include file="nav.jsp" %><%@ include file="slideshow.jsp" %></div>
 </body>
 </html>

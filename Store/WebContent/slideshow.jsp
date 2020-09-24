@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html;charset=utf-8"%>
-
-
 <style>
 .layui-carousel {
-	  width:1300px;
+	width: 1300px;
 	height: 440px;
-
 }
 </style>
 <div class="layui-carousel" id="test10">
