@@ -10,7 +10,7 @@
         <div class="tableWrap fr">
             <form action="#">
                 <div class="tableTap clear">
-                    <h3 class="fl">商城用户登录</h3>
+                    <h3 class="fl">易购物用户登录</h3>
                     <a class="fr" href="Register.jsp">注册账号</a>
                 </div>
                 <div class="tableItem">

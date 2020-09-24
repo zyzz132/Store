@@ -9,25 +9,11 @@ import javax.naming.Context;
 
 
 public class BaseDao {
-    private String driver = "com.mysql.cj.jdbc.Driver";
-    private String url="jdbc:mysql://localhost:3306/store?serverTimezone=UTC";
-    private String user="store";
-    private String password="1234";
-    Connection conn=null;
+    
 
-//    public Connection getConnection(){
-//        try{
-//            Class.forName(driver);
-//            conn= DriverManager.getConnection(url,user,password);
-//
-//        }catch (ClassNotFoundException e){
-//            e.printStackTrace();
-//        }catch (SQLException e){
-//            e.printStackTrace();
-//        }
-//        return conn;
-//    }
+
     public Connection getConnection(){
+    	Connection conn=null;
     	try {
 			Context ctx=new InitialContext();
 			DataSource dataSource = (DataSource)ctx.lookup("java:comp/env/jdbc/store");
@@ -39,18 +25,22 @@ public class BaseDao {
         return conn;
     }
     public int update(String sql,Object ...objects){
+    	Connection conn=null;
         int num=0;
         if(conn==null){
             conn=getConnection();
         }
+        PreparedStatement ps =null;
         try{
-            PreparedStatement ps=conn.prepareStatement(sql);
+            ps=conn.prepareStatement(sql);
             for (int i=0;i<objects.length;i++){
                 ps.setObject(i+1,objects[i]);
             }
             num=ps.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
+        }finally{
+        	closeALL(ps,conn);
         }
 
         return num;
@@ -72,5 +62,21 @@ public class BaseDao {
         }catch (SQLException e){
             e.printStackTrace();
         }
+    }
+    protected ResultSet executeQuery(String sql, Object... params) {
+    	Connection conn=null;
+        conn = this.getConnection();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            for (int i = 0; i < params.length; i++) {
+                pstmt.setObject(i + 1, params[i]);
+            }
+            rs = pstmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rs;
     }
 }

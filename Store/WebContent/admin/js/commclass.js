@@ -8,7 +8,7 @@ $(function () {
         }, function(){
             var type="delCommClass";
             $.ajax({
-                url:'topic',
+                url:'../topic',
                 type:'post',
                 data:{ClassID:node,prol:type},
                 dataType:'text',

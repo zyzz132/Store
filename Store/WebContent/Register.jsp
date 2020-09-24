@@ -11,7 +11,7 @@
         <div class="tableWrap fr">
             <form action="#">
                 <div class="tableTap clear">
-                    <h3 class="fl">京东商城用户注册</h3>
+                    <h3 class="fl">易购物商城用户注册</h3>
                 </div>
                 <div class="tableItem">
                     <i class="userHead"></i>
@@ -25,7 +25,7 @@
                     <i class="userLock"></i>
                     <input type="password" placeholder="确认密码" required/>
                 </div>
-                <p class="clickRegist">点击注册，表示您同意京东商城 <a href="#">《服务协议》</a></p>
+                <p class="clickRegist">点击注册，表示您同意易购物商城 <a href="#">《服务协议》</a></p>
                 <button class="tableBtn">同意协议并注册</button>
             </form>
 </section>

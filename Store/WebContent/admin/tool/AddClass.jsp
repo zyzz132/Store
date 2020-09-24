@@ -19,14 +19,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label">分类名称 :</label>
             <div class="layui-input-block">
-                <input type="text" name="ClassName" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                <input type="text" name="ClassName"  lay-verify="required" autocomplete="off" placeholder="请输入商品分类" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">上级分类 :</label>
             <div class="layui-input-inline">
                 <select name="parentClass">
-                    <option value="0">请选择县/区</option>
+                    <option value="0">请选择上级分类</option>
                     <%
                         user userinfo=(user)session.getAttribute("Userinfo");
                         if(userinfo!=null){
@@ -43,7 +43,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">排序 :</label>
             <div class="layui-input-block">
-                <input type="text" name="sort" lay-verify="title" value="0" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                <input type="text" name="sort" lay-verify="number" value="0" autocomplete="off" placeholder="请输入标题" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -88,21 +88,7 @@
 
     });
 
-    //自定义验证规则
-    form.verify({
-        title: function(value){
-            if(value.length < 5){
-                return '标题至少得5个字符啊';
-            }
-        }
-        ,pass: [
-            /^[\S]{6,12}$/
-            ,'密码必须6到12位，且不能出现空格'
-        ]
-        ,content: function(value){
-            layedit.sync(editIndex);
-        }
-    });
+    
 </script>
 </body>
 </html>

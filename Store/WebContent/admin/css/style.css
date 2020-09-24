@@ -57,6 +57,6 @@ body{
 .brand_logo>#brand_logo{width: 100px;height: 100px}
 .brand_logo>#brand_bigImage{width: 300px;height: 250px}
 
-.addTypex{background-color: #f8f9fc;padding: 10px;border: 1px solid #eeeaea;}
+.addTypex{background-color: #f8f9fc;padding: 10px;border: 1px solid #eeeaea;margin-bottom: 20px;}
 .addTypex>p:first-child{width: 200px}
 .addTypex>p{width: 100px;display: inline-block;line-height: 32px;margin-right: 12px;margin-top: 10px;margin-bottom: 20px;}

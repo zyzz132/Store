@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.Random;
 
 import Dao.BaseDao;
+import entity.Commodity;
+import entity.CommodityImage;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
@@ -52,46 +55,24 @@ public class FileServlet extends HttpServlet {
                             File fullName=null;
                             do{
                                 fullName=new File(uploadFilePath,((int)(Math.random()*1000000000))+".png");
-                                System.out.println(fullName.getName());
+                                System.out.println(uploadFilePath+"/"+fullName.getName());
                             }while (fullName.isFile());//判断文件是否存在，如果存在不保存
                             //写出文件
 
                             item.write(fullName);
-                            BaseDao bd=new BaseDao();
-                            //判断上传类型
-                            String brandType=request.getParameter("brand");
-                            if(brandType!=null){
-                                String sql="INSERT INTO brand_images(TYPE,image_path) VALUES(?,?)";
-                                String sql2="";
-                                int num=0;
-                                if(brandType.equals("0")){
-                                    num=bd.update(sql,0,fullName.getName());
-                                    sql2="SELECT id FROM brand_images WHERE TYPE=0 AND image_path=?";
-                                }else{
-                                    num=bd.update(sql,1,fullName.getName());
-                                    sql2="SELECT id FROM brand_images WHERE TYPE=1 AND image_path=?";
-                                }
-                                if(num>=1){
-                                    if(!sql2.equals("")){
-                                        Connection conn=bd.getConnection();
-                                        PreparedStatement ps= null;
-                                        ps = conn.prepareStatement(sql2);
-                                        ps.setObject(1,fullName.getName());
-                                        ResultSet rs=ps.executeQuery();
-                                        if(rs!=null){
-                                            while(rs.next()){
-                                                out.print("{\n" +
-                                                        "  \"code\": 0\n" +
-                                                        "  ,\"msg\": \"\"\n" +
-                                                        "  ,\"data\": {\n" +
-                                                        " \"id\": "+rs.getInt("id")+"\n"+
-                                                        "  }\n" +
-                                                        "}       ");
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+	                          out.print("{\n" +
+	                          "  \"code\": 0\n" +
+	                          "  ,\"msg\": \"\"\n" +
+	                          "  ,\"data\": {\n" +
+	                          " \"name\": \""+fullName.getName()+"\"\n"+
+	                          "  }\n" +
+	                          "}       ");
+	                          Commodity commd=(Commodity)request.getSession().getAttribute("comm");
+	                          List<CommodityImage> list=commd.getImageList();
+	                          CommodityImage commdimage=new CommodityImage();
+	                          commdimage.setCommImage_Url(fullName.getName());
+	                          list.add(commdimage);
+	                          commd.setImageList(list);
 
                         }
                     }
