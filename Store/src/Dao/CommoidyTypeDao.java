@@ -28,6 +28,7 @@ public class CommoidyTypeDao extends BaseDao{
 		
 		return num;
 	}
+	//获取所有商品规格
 	public List<CommodityType> getCommTypes(){
 		String sql="SELECT * FROM commodity_type";
 		List<CommodityType> list =new ArrayList<CommodityType>();
@@ -36,6 +37,36 @@ public class CommoidyTypeDao extends BaseDao{
 		ResultSet rs=null;
 		try {
 			ps=conn.prepareStatement(sql);
+			rs=ps.executeQuery();
+			if(rs!=null){
+				while(rs.next()){
+					CommodityType commtype=new CommodityType();
+					commtype.setCommType_Id(rs.getInt("CommType_Id"));
+					commtype.setCommodity_Id(rs.getInt("Commodity_Id"));
+					commtype.setCommType_Name(rs.getString("CommType_Name"));
+					commtype.setCommType_Price(rs.getDouble("CommType_Price"));
+					commtype.setCommType_Count(rs.getInt("CommType_Count"));
+					list.add(commtype);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			closeALL(rs,ps,conn);
+		}
+		return list;
+	}
+	//根据商品id获取商品规格
+	public List<CommodityType> getCommID_Types(int Commodity_id){
+		String sql="SELECT * FROM commodity_type WHERE Commodity_Id=?";
+		List<CommodityType> list =new ArrayList<CommodityType>();
+		Connection conn=getConnection();
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		try {
+			ps=conn.prepareStatement(sql);
+			ps.setObject(1, Commodity_id);
 			rs=ps.executeQuery();
 			if(rs!=null){
 				while(rs.next()){

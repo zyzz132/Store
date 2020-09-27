@@ -28,11 +28,11 @@
 
 
 <script src="../layui/layui.js" charset="utf-8"></script>
-<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 
 <style>
-	.layui-table-cell{height: 100px;line-height: 50px;}
-	th>.layui-table-cell{height: 50px;}
+	td>.layui-table-cell{height: 130px;padding: 10px;}
+	td>.layui-table-cell>p{padding: 5px;}
+	th>.layui-table-cell{height: 41px;line-height: 41px;}
 </style>
 
 <script>
@@ -41,22 +41,44 @@
 
         table.render({
             elem: '#demo'
-            ,height: 312
-            ,url:'../topic?prol=getCommoditysinfo'
-            ,page: true ,//开启分页
-			height:1000
+            ,url:'../topic?prol=getCommoditysinfo'    
+            ,align:'center'		
+            ,page: true 
             ,cols: [[
-                {field:'Commodity_Id', width:80, title: 'ID', sort: true}
-				,{field:'',width:200,title:'商品图片',height:100,style:"height:80px",templet:function(){return '<img src="../images/2.png" alt=""/>'}}
-                ,{field:'Commodity_Name', title: '商品名称'}
-                
-                ,{field:'subname', width:200, title: '副标题'}
-				,{field:'Commodity_No', width:120, title: '商品货号', sort: true}
-                ,{field:'brand_id', width:120,title: '品牌', minWidth: 150}
-                ,{field:'selling_price', width:80, title: '价格'}
-                ,{field:'market_price', width:135, title: '财富', sort: true},
-				,{field:'isShow', title:'是否显示', width:85, templet: '#switchTpl', unresize: false}
+                {field:'Commodity_Id', width:80, title: 'ID', sort: true,align:'center'	}
+				,{field:'CommImage_Url',width:120,title:'商品图片',style:"height:80px",templet:function(d){
+					return "<img src='../upload/"+d.CommImage_Url+"' alt='' style='width:80px;height: 80px;'/>"},align:'center'	}
+                ,{title: '商品名称',align:'center',templet:function(d){
+                	return '<p>'+d.Commodity_Name+'</p>'+'<p>'+d.CommClass_Id+'</p>';
+                }}
+                ,{width:200, title: '副标题',align:'center',templet:function(d){
+                	return '<p>价格：￥'+d.selling_price+'</p>'+'<p>货号：'+d.Commodity_No+'</p>';
+                }}
+				,{width:150, title: '标签',align:'center'	,templet:function(d){
+					var putawayHtml='<p>上架：<input type="checkbox" name="putaway" lay-skin="switch" lay-filter="switchTest" ></p>';
+					if(d.putaway==1){
+						putawayHtml='<p>上架：<input type="checkbox" checked="" name="putaway" lay-skin="switch" lay-filter="switchTest" ></p>';
+					}
+					var new_recommendHtml='<p>新品：<input type="checkbox" name="new_recommend" lay-skin="switch" lay-filter="switchTest" ></p>';
+					if(d.new_recommend==1){
+						new_recommendHtml='<p>新品：<input type="checkbox" checked="" name="new_recommend" lay-skin="switch" lay-filter="switchTest" ></p>';
+					}
+					var recommendHtml='<p>推荐：<input type="checkbox" name="recommend" lay-skin="switch" lay-filter="switchTest" ></p>';
+					if(d.recommend==1){
+						recommendHtml='<p>推荐：<input type="checkbox" checked="" name="recommend" lay-skin="switch" lay-filter="switchTest" ></p>';
+					}
+					return putawayHtml+new_recommendHtml+recommendHtml;
+				}}
+                ,{field:'sort', width:120,title: '排序', minWidth: 150,sort: true,align:'center'	}
+                ,{width:80, title: 'SKU库',align:'center',templet:function(){}}
+                ,{field:'market_price', width:135, title: '财富',align:'center'	 }
+				,{title:'是否显示', width:130, templet:function(){
+					var btn1='<button type="button" class="layui-btn layui-btn-primary layui-btn-sm">编辑</button>';
+					var btn2='<button type="button" class="layui-btn layui-btn-primary layui-btn-sm">删除</button>';
+					return btn1+btn2;
+				}}
             ]]
+			,limits:[5,10,15,20]
 
         });
     });
@@ -65,7 +87,7 @@
     layer.open({
       type: 1,
       skin: 'layui-layer-rim', //加上边框
-      area: ['420px', '240px'], //宽高
+      //area: ['420px', '240px'], //宽高
       content: 'html内容'
     });
 </script>

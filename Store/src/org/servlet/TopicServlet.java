@@ -55,7 +55,7 @@ public class TopicServlet extends HttpServlet {
                 this.DelCommClass(request,response,out,userinfo);
                 break;
             case "getCommoditysinfo":
-                this.getCommoditys(out,userinfo);
+                this.getCommoditys(request,out,userinfo);
                 break;
             case "AddCommodity":
                 this.AddCommodity(request,response,out,userinfo);
@@ -152,16 +152,27 @@ public class TopicServlet extends HttpServlet {
         out.print(bood);
     }
     //获取商品信息表
-    public void getCommoditys(PrintWriter out,user userinfo){
-        List<Commodity> list=((admin) userinfo).getCommoditys();
+    public void getCommoditys(HttpServletRequest request,PrintWriter out,user userinfo){
+    	int page=Integer.parseInt(request.getParameter("page"));
+    	int limit=Integer.parseInt(request.getParameter("limit"));
+    	CommodiyDao commDao=new CommodiyDao();
+        List<Commodity> list=commDao.getCommClass(page, limit);
         //out.print(list.get(0).getSelling_price()+",\"market_price\":"+list.get(0).getMarket_price()+",\"warehousing\":"+list.get(0).getWarehousing()+",\"unit\":\"");
-        StringBuffer json=new StringBuffer("{\"code\":0,\"msg\":\"\",\"count\":"+list.size()+",\"data\":[");
+        StringBuffer json=new StringBuffer("{\"code\":0,\"msg\":\"\",\"count\":"+commDao.getcount()+",\"data\":[");
         for(int i=0;i<list.size();i++){
+        	String CommImage_Url="";
+        	if(list.get(i).getImageList().size()>0){
+        		CommImage_Url=list.get(i).getImageList().get(0).getCommImage_Url();
+        	}
             String node="{\"Commodity_Id\":"+list.get(i).getCommodity_Id()+",\"Commodity_Name\":\""+list.get(i).getCommodity_Name()+
                     "\",\"CommClass_Id\":"+list.get(i).getCommClass_Id()+",\"subname\":\""+list.get(i).getSubname()+"\",\"brand_id\":"+list.get(i).getBrand_id()+
                     ",\"Commodity_introduce\":\""+list.get(i).getCommodity_introduce()+"\",\"Commodity_No\":\""+list.get(i).getCommodity_No()+"\",\"selling_price\":"+
                     list.get(i).getSelling_price()+",\"market_price\":"+list.get(i).getMarket_price()+",\"warehousing\":"+list.get(i).getWarehousing()+",\"unit\":\""+
-                    list.get(i).getUnit()+"\",\"weight\":\""+list.get(i).getWeight()+"\",\"sort\":"+list.get(i).getSort()+",\"Time\":\""+list.get(i).getTime()+"\"}";
+                    list.get(i).getUnit()+"\",\"weight\":\""+list.get(i).getWeight()+"\",\"sort\":"+list.get(i).getSort()+",\"Time\":\""+list.get(i).getTime()+"\",\"CommImage_Url\":\""+
+                    CommImage_Url+"\","+
+                    "\"putaway\":"+list.get(i).getPutaway()+","+
+                    "\"new_recommend\":"+list.get(i).getNew_recommend()+","+
+                    "\"recommend\":"+list.get(i).getRecommend()+"}";
             json.append(node);
             if(i<list.size()-1){
                 json.append(",");

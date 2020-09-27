@@ -53,9 +53,7 @@ public class CommodiyDao extends BaseDao{
 				CommoidyTypeDao ctdao=new CommoidyTypeDao();
 				for(int i=0;i<commd.getCommTypeList().size();i++){
 					commd.getCommTypeList().get(i).setCommodity_Id(commd.getCommodity_Id());
-					System.out.println("开始添加"+i);
 					num=ctdao.AddCommType(commd.getCommTypeList().get(i));
-					System.out.println("关闭添加"+i);
 					if(num==0){
 						return num;
 					}
@@ -75,9 +73,12 @@ public class CommodiyDao extends BaseDao{
 		}
 		return 1;
 	}
-	public List<CommClass> getCommClass(int page, int limit){
-    	String sql="SELECT cl.CommClass_Id,cl.parentClass,cl.CommClass_Name,COUNT(cd.CommClass_Id) commodiyCount,cl.isShow,cl.isNavShow,cl.keyWord,cl.ClassDescribe,cl.sort FROM commclass cl LEFT  JOIN commodity cd ON cl.CommClass_Id=cd.CommClass_Id GROUP BY cl.CommClass_Id LIMIT ?,?";
-        List<CommClass> list=new ArrayList<CommClass>();
+	//获取商品信息
+	public List<Commodity> getCommClass(int page, int limit){
+    	String sql="SELECT * FROM commodity LIMIT ?,?";
+        List<Commodity> list=new ArrayList<Commodity>();
+        CommoidyTypeDao ctdao=new CommoidyTypeDao();
+        CommodityImageDao cimgdao=new CommodityImageDao();
         Connection conn =getConnection();
         PreparedStatement ps=null;
         ResultSet rs=null;
@@ -93,25 +94,42 @@ public class CommodiyDao extends BaseDao{
 			ps.setInt(2, limit);
 			rs=ps.executeQuery();
 			while(rs.next()){
-				CommClass commcalss=new CommClass(rs.getInt("CommClass_Id"),rs.getInt("parentClass"), 
-						rs.getString("CommClass_Name"), 
-						rs.getInt("isShow"), 
-						rs.getInt("isNavShow"), 
-						rs.getString("keyWord"), 
-						rs.getString("ClassDescribe"), 
-						rs.getInt("sort"),
-						rs.getInt("commodiyCount"));
-				list.add(commcalss);
+				Commodity commd=new Commodity();
+				commd.setCommodity_Id(rs.getInt("Commodity_Id"));
+				commd.setCommodity_Name(rs.getString("Commodity_name"));
+				commd.setCommClass_Id(rs.getInt("CommClass_Id"));
+				commd.setTime(rs.getString("CommClass_Id"));
+				commd.setSubname(rs.getString("subname"));
+				commd.setUnit(rs.getString("unit"));
+				commd.setBrand_id(rs.getInt("brand_id"));
+				commd.setCommodity_No(rs.getString("Commodity_No"));
+				commd.setWarehousing(rs.getInt("warehousing"));
+				commd.setSort(rs.getInt("sort"));
+				commd.setSelling_price(rs.getDouble("selling_price"));
+				commd.setMarket_price(rs.getDouble("market_price"));
+				commd.setWeight(rs.getString("weight"));
+				commd.setCommodity_introduce(rs.getString("Commodity_introduce"));
+				commd.setPutaway(rs.getInt("putaway"));
+				commd.setNew_recommend(rs.getInt("new_recommend"));
+				commd.setRecommend(rs.getInt("recommend"));
+				commd.setGuarantee1(rs.getInt("guarantee1"));
+				commd.setGuarantee2(rs.getInt("guarantee2"));
+				commd.setGuarantee3(rs.getInt("guarantee3"));
+				commd.setCommTypeList(ctdao.getCommID_Types(commd.getCommodity_Id()));
+				commd.setImageList(cimgdao.getCommodityImage(rs.getInt("Commodity_Id")));
+				list.add(commd);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			closeALL(rs,ps,conn);
 		}
         
         return list;
     }
     public int getcount(){
-    	String sql="SELECT COUNT(*) FROM commclass cl";
+    	String sql="SELECT COUNT(*) FROM commodity ";
     	Connection conn=getConnection();
     	PreparedStatement ps=null;
     	ResultSet rs=null;
