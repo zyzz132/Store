@@ -1,0 +1,62 @@
+body{
+    padding: 20px;
+}
+.btn_B{background-color: #1E9FFF;border-radius: 3px;line-height: 30px;padding: 0 10px;display: inline-block;color: white;
+    float: right;}
+.btn_B:hover{background-color:#4db3ff;color:white}
+
+.box_A{border:1px solid #ddd;padding: 30px}
+
+#talbe_a{width: 100%;}
+#talbe_a td,#talbe_a th{text-align: center;border-right: 1px solid #e6e6e6;border-bottom: 1px solid #e6e6e6;line-height: 40px;color:#666;font-size: 14px;}
+#talbe_a td:first-child,#talbe_a th:first-child{border-left:1px solid #e6e6e6;}
+#talbe_a th{border-top:1px solid #e6e6e6;background-color: #f2f2f2;}
+#talbe_a tr:hover{background-color: #f2f2f2}
+.addclassbox{width: 700px;margin: 0 auto;padding-right: 30px;}
+
+/*删除按钮*/
+.delbtn{border-color: red;color: red;}
+
+
+/*page分页*/
+.page_ye{margin-top: 10px;}
+.page_ye>div{border:1px solid #ddd;display: inline-block;padding: 5px 10px;font-size: 12px;}
+
+.shortselect{
+    background:#fafdfe;
+    height:28px;
+    width:180px;
+    line-height:28px;
+    border:1px solid #9bc0dd;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    border-radius:2px;
+}
+.lc_c{margin-bottom: 40px}
+.lc_c>.lc_c_l{width:calc(690px / 3);display: inline-block}
+.lc_c>.lc_c_l>.bz_x{position:relative;height:40px;display: block}
+.lc_c>.lc_c_l>.bz_x>.bz{color:#c0c4cc;background-color: white;z-index:2;position:absolute;left:calc(50% - 13px);top:0px;border:3px solid #c0c4cc;border-radius:50%;width:23px;line-height:23px;text-align:center;font-size: 18px}
+.lc_c>.lc_c_l>.bz_x>.bz_xian{width: 100%;height: 3px;background-color: #c0c4cc;position: absolute;left:50%;z-index:1;top: 13px;}
+.lc_c>.lc_c_l>.bz_text{text-align:center;color:#c0c4cc;font-size: 16px;font-weight: bold}
+.lc_c>.lc_che>.bz_text,.lc_c>.lc_che>.bz_x>.bz{color: #0C0C0C}
+.lc_c>.lc_che>.bz_x>.bz{border:3px solid #0C0C0C;}
+.lc_c>.lc_wc>.bz_text,.lc_c>.lc_wc>.bz_x>.bz{color: #67c23a}
+.lc_c>.lc_wc>.bz_x>.bz{border:3px solid #67c23a;}
+
+.formPadden{padding-right: 30px;}
+
+
+.admin_login_box{background-color: #fff;border-radius: 4px;height: 290px;left: 50%;margin-left: -220px;margin-top: -180px;padding: 35px 40px 50px;position: absolute;top: 50%;width: 360px;}
+.rlogo{text-align: center;font-size: 26px;color: #444;cursor: pointer;height: 40px;margin-bottom: 40px;overflow: hidden;}
+.admin_login_box .line{padding: 5px 0;height: 42px;margin-bottom: 20px;line-height: 42px;position: relative;}
+.admin_login_box .line>.inputtext{background: transparent;float: left;width: 100%;line-height: 30px;border: #d1d1d1 1px solid;padding: 5px 10px;position: relative;z-index: 1;box-shadow: 0 3px 5px -4px rgba(0,0,0,0.4) inset, -1px 0 3px -2px rgba(0,0,0,0.1) inset;border-radius: 3px;}
+.login_btn>input{width: 100%;height: 44px;background: #20a53a;background: linear-gradient(#20a53a,#189d32);box-shadow: inset 0 1px 2px #30ad42;color: #fff;text-shadow: #00851a 0 -1px 0;border: 1px solid #20a53a;text-align: center;font-size: 16px;color: #fff;border-radius: 3px;cursor: pointer;}
+.box_B{padding: 20px;border:1px solid #ddd;margin-bottom: 20px}
+.box_B>span{line-height: 30px;font-size: 18px;}
+.brand_logo{margin-left: 110px}
+.brand_logo>#brand_logo{width: 100px;height: 100px}
+.brand_logo>#brand_bigImage{width: 300px;height: 250px}
+
+.addTypex{background-color: #f8f9fc;padding: 10px;border: 1px solid #eeeaea;margin-bottom: 20px;}
+.addTypex>p:first-child{width: 200px}
+.addTypex>p{width: 100px;display: inline-block;line-height: 32px;margin-right: 12px;margin-top: 10px;margin-bottom: 20px;}
